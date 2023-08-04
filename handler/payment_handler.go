@@ -38,6 +38,11 @@ func(ph *paymentHandlerImpl) Payment(ctx *gin.Context){
 		})
 		return
 	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+        "success": true,
+        "message": "Transfer Berhasil",
+    })
 }
 
 func NewPaymantHandler(serve *gin.Engine,paymentUsecase usecase.PaymentUsecase) PaymentHanlder {
