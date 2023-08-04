@@ -10,14 +10,14 @@ import (
 )
 
 type MarchantRepository interface {
-	Create(*model.MarchantModel) error
+	CreateMarchant(*model.MarchantModel) error
 }
 
 type marchantRepository struct {
 	filepath string
 }
 
-func (m *marchantRepository) Create(marchant *model.MarchantModel ) error {
+func (m *marchantRepository) CreateMarchant(marchant *model.MarchantModel ) error {
 	marchants, err := readMarchantFromFile("data/marchant.json")
 	if err != nil {
 		return err

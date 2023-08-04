@@ -59,5 +59,6 @@ func (rm *repositoryManagerImp) GetMarchantRepo() repository.MarchantRepository{
 
 func NewRepositoryManager(filepath string) RepositoryManager {
 	return &repositoryManagerImp{
+		filepath: filepath,
 	}
 }

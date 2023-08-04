@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/syahyudi09/BankingAPI/auth"
 	"github.com/syahyudi09/BankingAPI/model"
 	"github.com/syahyudi09/BankingAPI/usecase"
 )
@@ -45,6 +46,12 @@ func NewPaymantHandler(serve *gin.Engine,paymentUsecase usecase.PaymentUsecase) 
 		paymentUsecase: paymentUsecase,
 	}
 
-	serve.POST("/payment", paymentHandler.Payment)
+	authService := auth.NewServiceJWT()
+	middleware := auth.NewMiddleware(authService)
+
+	authenticated := serve.Group("/")
+	authenticated.Use(middleware.AuthMiddleware())
+
+	authenticated.POST("/payment", paymentHandler.Payment)
 	return paymentHandler
 }

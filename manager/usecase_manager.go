@@ -51,14 +51,19 @@ func(um *usecaseManagerImpl) GetPaymentUsecase() usecase.PaymentUsecase{
 	onceLoadPaymentUsecase.Do(func() {
 		um.paymentUsecase = usecase.NewPaymentUsecase(
 			um.repositoryManager.GetPaymentRepo(),
+			um.authService,
 		)
 	})
 	return um.paymentUsecase
 }
 
-func (um *usecaseManagerImpl) GetMarchantUsecase() usecase.MarchantUsecase{
+func (um *usecaseManagerImpl) GetMarchantUsecase() usecase.MarchantUsecase {
 	onceLoadMarchantUsecase.Do(func() {
-		um.repositoryManager.GetMarchantRepo()
+		um.marchantUsecase = usecase.NewMerchantUsecase(
+			um.repositoryManager.GetMarchantRepo(),
+			um.authService,
+			
+		)
 	})
 	return um.marchantUsecase
 }
